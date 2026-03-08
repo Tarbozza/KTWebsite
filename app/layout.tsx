@@ -11,7 +11,7 @@ const myFont = localFont({
   display: 'swap',
 })
 
-const _kanit = Kanit({ 
+const _kanit = Kanit({
   subsets: ["thai", "latin"],
   weight: ["300", "400", "600", "800"],
 });
@@ -22,7 +22,7 @@ const _vt323 = VT323({
 });
 
 export const metadata: Metadata = {
-  title: 'KT Thaiban | เซิร์ฟเวอร์มายคราฟที่ดีที่สุด',
+  title: 'KT Thaibaan | เซิร์ฟเวอร์มายคราฟที่ดีที่สุด',
   description: 'เปิดประสบการณ์เอาชีวิตรอดในรูปแบบใหม่ สังคมดี ระบบเสถียร รองรับทั้ง Bedrock',
   generator: 'v0.app',
   icons: {

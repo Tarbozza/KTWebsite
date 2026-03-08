@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!rule) return {};
 
   return {
-    title: `${rule.title} | กฏหมู่บ้าน KT Thaiban`,
+    title: `${rule.title} | กฏหมู่บ้าน KT Thaibaan`,
     description: rule.description,
   };
 }

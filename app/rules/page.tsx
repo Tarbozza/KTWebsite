@@ -7,8 +7,8 @@ import { RuleCard } from "@/components/rules/rule-card";
 import { ChevronRight, ScrollText } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "กฏหมู่บ้าน | KT Thaiban",
-  description: "กฎระเบียบและข้อบังคับของเซิร์ฟเวอร์ KT Thaiban อ่านและปฏิบัติตามเพื่อประสบการณ์ที่ดีของทุกคน",
+  title: "กฏหมู่บ้าน | KT Thaibaan",
+  description: "กฎระเบียบและข้อบังคับของเซิร์ฟเวอร์ KT Thaibaan อ่านและปฏิบัติตามเพื่อประสบการณ์ที่ดีของทุกคน",
 };
 
 export default function RulesPage() {
@@ -43,7 +43,7 @@ export default function RulesPage() {
                   กฏหมู่บ้าน
                 </h1>
                 <p className="text-gray-400 text-sm sm:text-base mt-0.5">
-                  KT Thaiban — อ่านและปฏิบัติตามเพื่อสังคมที่ดีของทุกคน
+                  KT Thaibaan — อ่านและปฏิบัติตามเพื่อสังคมที่ดีของทุกคน
                 </p>
               </div>
             </div>

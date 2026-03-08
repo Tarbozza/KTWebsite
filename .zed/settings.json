@@ -19,5 +19,6 @@
       "language_servers": ["!deno", "!typescript-language-server", "vtsls", "!eslint"],
       "formatter": "language_server"
     }
-  }
+  },
+  "disable_ai": false
 }
