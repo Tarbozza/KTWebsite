@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Menu, X, Lock, ChevronRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { DiscordIcon } from "@/components/shared/discord-icon";
+import { useServerStatus } from "@/context/server-status-context";
 
 const NAV_LINKS = [
   { id: "home", href: "/", label: "หน้าแรก", emoji: "🏠", enabled: true },
@@ -93,8 +94,8 @@ function NavLink({
 
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [discordMemberCount, setDiscordMemberCount] = useState<number | null>(null);
   const [scrolled, setScrolled] = useState(false);
+  const { discordMembers } = useServerStatus();
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
@@ -102,22 +103,6 @@ export function Navbar() {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const fetchDiscordMembers = async () => {
-      try {
-        const res = await fetch("/api/status");
-        if (!res.ok) return;
-        const data = await res.json();
-        if (data?.discord?.members !== undefined) {
-          setDiscordMemberCount(data.discord.members);
-        }
-      } catch {
-        // silently fail
-      }
-    };
-    fetchDiscordMembers();
   }, []);
 
   useEffect(() => {
@@ -140,15 +125,15 @@ export function Navbar() {
     <>
       <nav
         className={`fixed w-full z-50 transition-all duration-300 ${scrolled
-            ? "bg-black/80 backdrop-blur-2xl border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.4)]"
-            : "bg-gradient-to-b from-black/60 to-transparent backdrop-blur-sm"
+          ? "bg-black/80 backdrop-blur-2xl border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.4)]"
+          : "bg-gradient-to-b from-black/60 to-transparent backdrop-blur-sm"
           }`}
       >
-        <div className="container mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          {/* Logo */}
+        <div className="container mx-auto px-4 sm:px-6 h-16 grid grid-cols-3 items-center">
+          {/* Left — Logo */}
           <Link
             href="/"
-            className="font-mono font-bold text-white text-lg tracking-tight shrink-0 z-10"
+            className="font-mono font-bold text-white text-lg tracking-tight shrink-0 z-10 justify-self-start"
             onClick={closeMobileMenu}
           >
             KT{" "}
@@ -157,34 +142,38 @@ export function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-7 text-sm font-medium">
+          {/* Center — Desktop nav links */}
+          <div className="hidden md:flex items-center justify-center gap-7 text-sm font-medium">
             {NAV_LINKS.map((item) => (
               <NavLink key={item.id} item={item} />
             ))}
           </div>
 
-          {/* Desktop Discord button */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* Right — Desktop Discord button */}
+          <div className="hidden md:flex items-center justify-end">
             <Link
-              href="/discord"
+              href="https://discord.gg/uRqNTSGgG6"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-[#5865F2] hover:bg-[#4752c4] active:bg-[#3c45a5] px-4 py-2 rounded-xl text-white text-sm font-semibold transition-all hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(88,101,242,0.35)] shadow-[0_2px_10px_rgba(88,101,242,0.2)]"
             >
               <DiscordIcon />
               Discord
-              {discordMemberCount !== null && (
+              {discordMembers !== null && (
                 <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/15 text-xs text-white/90">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                  {discordMemberCount.toLocaleString()}
+                  {discordMembers.toLocaleString()}
                 </span>
               )}
             </Link>
           </div>
 
           {/* Mobile: Discord mini + hamburger */}
-          <div className="md:hidden flex items-center gap-2">
+          <div className="md:hidden flex items-center gap-2 justify-self-end col-start-3">
             <Link
-              href="/discord"
+              href="https://discord.gg/uRqNTSGgG6"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-1.5 bg-[#5865F2]/90 hover:bg-[#5865F2] px-3 py-2 rounded-xl text-white text-xs font-semibold transition-colors"
               onClick={closeMobileMenu}
             >
@@ -218,8 +207,8 @@ export function Navbar() {
       {/* Mobile full-screen overlay menu */}
       <div
         className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${isMobileMenuOpen
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
+          ? "opacity-100 pointer-events-auto"
+          : "opacity-0 pointer-events-none"
           }`}
       >
         {/* Backdrop */}
@@ -253,8 +242,8 @@ export function Navbar() {
               <div
                 key={item.id}
                 className={`transition-all duration-300 ${isMobileMenuOpen
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-2"
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-2"
                   }`}
                 style={{ transitionDelay: isMobileMenuOpen ? `${i * 50 + 80}ms` : "0ms" }}
               >
@@ -270,16 +259,18 @@ export function Navbar() {
             style={{ transitionDelay: isMobileMenuOpen ? "240ms" : "0ms" }}
           >
             <Link
-              href="/discord"
+              href="https://discord.gg/uRqNTSGgG6"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={closeMobileMenu}
               className="flex items-center justify-center gap-2.5 w-full bg-[#5865F2] hover:bg-[#4752c4] active:bg-[#3c45a5] py-3.5 rounded-xl text-white font-semibold text-base transition-colors shadow-[0_4px_20px_rgba(88,101,242,0.3)]"
             >
               <DiscordIcon className="w-5 h-5" />
               เข้าร่วม Discord
-              {discordMemberCount !== null && (
+              {discordMembers !== null && (
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/15 text-xs text-white/90">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                  {discordMemberCount.toLocaleString()} คน
+                  {discordMembers.toLocaleString()} คน
                 </span>
               )}
             </Link>

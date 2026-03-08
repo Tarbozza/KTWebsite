@@ -22,32 +22,20 @@ function FacebookIcon() {
   );
 }
 
-function YouTubeIcon() {
-  return (
-    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-    </svg>
-  );
-}
+
 
 const SOCIAL_LINKS = [
   {
     label: "Facebook",
-    href: "#",
+    href: "https://www.facebook.com/profile.php?id=61557126692822",
     icon: <FacebookIcon />,
     bg: "hover:bg-[#1877F2]",
   },
   {
     label: "Discord",
-    href: "#",
+    href: "https://discord.gg/uRqNTSGgG6",
     icon: <DiscordIcon className="w-4 h-4" />,
     bg: "hover:bg-[#5865F2]",
-  },
-  {
-    label: "YouTube",
-    href: "#",
-    icon: <YouTubeIcon />,
-    bg: "hover:bg-red-600",
   },
 ];
 
@@ -94,6 +82,8 @@ export function Footer() {
                 <a
                   key={social.label}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={social.label}
                   className={`
                     w-9 h-9 rounded-xl flex items-center justify-center
@@ -149,7 +139,9 @@ export function Footer() {
 
             {/* Mini Discord CTA */}
             <a
-              href="#"
+              href="https://discord.gg/uRqNTSGgG6"
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-5 flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-[#5865F2]/10 border border-[#5865F2]/20 hover:bg-[#5865F2]/20 hover:border-[#5865F2]/40 text-[#8b9ef4] hover:text-white transition-all duration-200 text-xs font-medium group"
             >
               <DiscordIcon className="w-4 h-4 shrink-0" />

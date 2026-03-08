@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import { Kanit, VT323 } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { ServerStatusProvider } from '@/context/server-status-context'
 import './globals.css'
 
 const myFont = localFont({
@@ -52,7 +53,9 @@ export default function RootLayout({
   return (
     <html lang="th" className="dark">
       <body className={`font-sans antialiased ${myFont.variable}`}>
-        {children}
+        <ServerStatusProvider>
+          {children}
+        </ServerStatusProvider>
         <Analytics />
       </body>
     </html>
