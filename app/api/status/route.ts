@@ -7,8 +7,8 @@ import type {
 } from "../../../lib/ping-mc/types";
 
 export async function GET() {
-  const host = "15.235.132.72";
-  const port = 20804;
+  const host = "ktrp.online";
+  const port = 19132;
   const discordInviteCode = "ktmcrp"; // Replace with your Discord invite code
 
   try {
